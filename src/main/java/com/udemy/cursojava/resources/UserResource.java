@@ -1,6 +1,7 @@
 package com.udemy.cursojava.resources;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.udemy.cursojava.domain.User;
+import com.udemy.cursojava.dto.UserDTO;
 import com.udemy.cursojava.service.UserService;
 
 @RestController
@@ -20,8 +22,10 @@ public class UserResource {
 	
 	
 	@GetMapping
-	public ResponseEntity<List<User>> findAll(){
-		return ResponseEntity.ok().body(service.findAll());
+	public ResponseEntity<List<UserDTO>> findAll(){
+		List<User> list = service.findAll();
+		List<UserDTO> listDTO = list.stream().map(x -> new UserDTO(x)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDTO);
 		
 	}
 	
