@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.udemy.cursojava.domain.Post;
 import com.udemy.cursojava.domain.User;
+import com.udemy.cursojava.dto.AuthorDTO;
 import com.udemy.cursojava.repository.PostRepository;
 import com.udemy.cursojava.repository.UserRepository;
 
@@ -40,8 +41,8 @@ public class Instantiation implements CommandLineRunner {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
 		List<Post> list = new ArrayList<Post>();
-		Post post1 = new Post(null, sdf.parse("21/03/2018"), "Partiu viagem", "Vou viajar para São Paulo. Abraços!",maria);
-		Post post2 = new Post(null, sdf.parse("23/03/2018"), "Bom dia", "Acordei feliz hoje!", maria);
+		Post post1 = new Post(null, sdf.parse("21/03/2018"), "Partiu viagem", "Vou viajar para São Paulo. Abraços!",new AuthorDTO(maria));
+		Post post2 = new Post(null, sdf.parse("23/03/2018"), "Bom dia", "Acordei feliz hoje!", new AuthorDTO(maria));
 		list.add(post1);
 		list.add(post2);
 		return list;
