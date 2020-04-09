@@ -34,8 +34,10 @@ public class PostResource {
 	}
 
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<UserDTO> findById(@PathVariable String id) {
-		return null;
+	public ResponseEntity<PostDTO> findById(@PathVariable String id) {
+		Post user = service.findById(id);
+		PostDTO dto = new PostDTO(user);
+		return ResponseEntity.ok().body(dto);
 	}
 
 	@PostMapping
