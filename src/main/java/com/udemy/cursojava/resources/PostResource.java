@@ -12,12 +12,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.udemy.cursojava.domain.Post;
 import com.udemy.cursojava.dto.CommentDTO;
 import com.udemy.cursojava.dto.PostDTO;
 import com.udemy.cursojava.dto.UserDTO;
+import com.udemy.cursojava.resources.util.URL;
 import com.udemy.cursojava.service.PostService;
 
 @RestController
@@ -41,6 +43,13 @@ public class PostResource {
 		return ResponseEntity.ok().body(dto);
 	}
 
+	@GetMapping(value = "/titlesearch")
+	public ResponseEntity<List<Post>> findByTitle(@RequestParam(value = "text", defaultValue = "") String text) {
+		text = URL.decodeParam(text);
+		List<Post> list = service.findByTitle(text);
+		return ResponseEntity.ok().body(list);
+	}
+
 	@PostMapping
 	public ResponseEntity<Void> insert(@RequestBody UserDTO dto) {
 		return null;
@@ -62,4 +71,5 @@ public class PostResource {
 		return ResponseEntity.ok().body(obj.getComments());
 
 	}
+
 }
