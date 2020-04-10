@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.udemy.cursojava.domain.Post;
+import com.udemy.cursojava.dto.CommentDTO;
 import com.udemy.cursojava.dto.PostDTO;
 import com.udemy.cursojava.dto.UserDTO;
 import com.udemy.cursojava.service.PostService;
@@ -49,10 +50,16 @@ public class PostResource {
 	public ResponseEntity<Void> delete(@PathVariable String id) {
 		return null;
 	}
-	
+
 	@PutMapping(value = "/{id}")
-	public ResponseEntity<Void> update(@RequestBody UserDTO dto , @PathVariable String id) {
+	public ResponseEntity<Void> update(@RequestBody UserDTO dto, @PathVariable String id) {
 		return null;
 	}
 
+	@GetMapping(value = "/{id}/comments")
+	public ResponseEntity<List<CommentDTO>> findComments(@PathVariable String id) {
+		Post obj = service.findById(id);
+		return ResponseEntity.ok().body(obj.getComments());
+
+	}
 }
